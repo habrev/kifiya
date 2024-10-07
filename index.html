@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Single Page Authentication</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:disabled {
+            background-color: #ccc;
+        }
+        .error {
+            color: red;
+            font-size: 12px;
+        }
+        .message {
+            margin: 10px 0;
+            color: green;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Login</h2>
+    <div id="message" class="message"></div>
+    <form id="loginForm">
+        <input type="email" id="email" placeholder="Email" required>
+        <input type="password" id="password" placeholder="Password" required>
+        <div id="error" class="error"></div>
+        <button type="submit" id="loginButton">Login</button>
+    </form>
+</div>
+
+<script>
+    // Mock credentials
+    const mockUser = {
+        email: "user@example.com",
+        password: "password123"
+    };
+
+    // Form elements
+    const loginForm = document.getElementById('loginForm');
+    const emailInput = document.getElementById('email');
+    const passwordInput = document.getElementById('password');
+    const errorDiv = document.getElementById('error');
+    const messageDiv = document.getElementById('message');
+    const loginButton = document.getElementById('loginButton');
+
+    // Handle form submission
+    loginForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+        errorDiv.textContent = '';
+        const email = emailInput.value.trim();
+        const password = passwordInput.value.trim();
+
+        // Basic validation
+        if (!email || !password) {
+            errorDiv.textContent = 'Please enter both email and password';
+            return;
+        }
+
+        // Mock authentication check
+        if (email === mockUser.email && password === mockUser.password) {
+            messageDiv.textContent = 'Login successful! Welcome, ' + email;
+            errorDiv.textContent = '';
+            loginButton.disabled = true;
+        } else {
+            errorDiv.textContent = 'Invalid email or password';
+        }
+    });
+</script>
+
+</body>
+</html>
